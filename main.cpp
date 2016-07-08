@@ -12,6 +12,7 @@
 #include "pathmarker.hpp"
 #include "allbouy.hpp"
 
+// all bouy , path marker and shpae detction working 
 
 using namespace std;
 using namespace cv;

@@ -12,7 +12,7 @@
 #include "pathmarker.hpp"
 #include "allbouy.hpp"
 
-// all bouy , path marker and shpae detction working 
+// all bouy , path marker and shpae detction working
 
 using namespace std;
 using namespace cv;
@@ -81,10 +81,10 @@ int main( int argc, char** argv )
     
  //   imshow("detect_r", detect_r);
     /////////////////////////////////////////////////////////////////////////////////////////////
-    int color_bouy = filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+    int color_bouy = filterImageHSV (detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
     
     fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-    imshow( "Display red", detect_r );
+  //  imshow( "Display red", detect_r );
 
     
    vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 0);
@@ -96,7 +96,7 @@ int main( int argc, char** argv )
         int color_bouy2 = filter_image_green(detect_g ,src, s.height, s.width, cent_i , 140  , 150 , 150 );
     
         fastNlMeansDenoising(detect_g,detect_g , 100, 3, 31);
-        imshow( "Display green", detect_g );
+  //      imshow( "Display green", detect_g );
     
     vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 1);
     cout<<"green completed"<<endl;
@@ -111,7 +111,7 @@ int main( int argc, char** argv )
 
     
         fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
-       imshow( "Display yellow", detect_y );
+ //      imshow( "Display yellow", detect_y );
     
     vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 2);
     cout<<"yellow completed"<<endl;
@@ -129,6 +129,7 @@ int main( int argc, char** argv )
 //imshow( "after denoising" , final_image);
     
     waitKey();
+    
     
 }
 

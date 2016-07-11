@@ -111,7 +111,7 @@ int main( int argc, char** argv )
 
     
         fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
- //      imshow( "Display yellow", detect_y );
+       imshow( "Display yellow", detect_y );
     
     vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 2);
     cout<<"yellow completed"<<endl;

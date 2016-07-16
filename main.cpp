@@ -38,7 +38,7 @@ int main( int argc, char** argv )
     //Front/Image651.png
     cout<<"Time at starting is 0 sec"<<endl;
     
-    string filename = "/Users/Somi/Desktop/_Recordings_/Front/Image651.png";
+    string filename = "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
     
     src = imread(filename);
     

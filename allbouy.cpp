@@ -58,7 +58,7 @@ vector<Point>   all_bouy( Mat detect , Mat final_image , double yawI , vector<Po
         if( color == 0){
         
             circle( final_image, center[l_c_i], (int)radius[l_c_i], Scalar( 0 , 0, 255 ), 2, 8, 0 );
-            setLabel(final_image, "Target Red", contours[l_c_i]); }// Triangle}
+            setLabel(final_image, "Target Red", contours[l_c_i]); }
         else if( color == 1){
             circle( final_image, center[l_c_i], (int)radius[l_c_i], Scalar( 0, 255, 0 ), 2, 8, 0 );
             setLabel(final_image, "Target Green", contours[l_c_i]);
@@ -71,42 +71,8 @@ vector<Point>   all_bouy( Mat detect , Mat final_image , double yawI , vector<Po
         
    
     }
-    
-
-    
-    
-    
-
-//    for (int k = 0; k < contours.size(); k++) {
-//        cout<<"contour everything:" << contours[k]<<"the size of the contour"<<contours.size()<<endl;
-//    }
      return contours[l_c_i];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void drawcontours(Mat final_image  , vector<vector<Point> > contours , int color_bouy , vector<Point> contour_r , vector<Point> contour_g , vector<Point> contour_y )
     {

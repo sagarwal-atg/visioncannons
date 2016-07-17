@@ -32,17 +32,25 @@ vector<double> area1;
 int main( int argc, char** argv )
 
 {
-    // this will be the main file for tesing computer vision and deploying in submarine
-    //Bouy_Ramming
-    //underwatertest
-    //Front/Image651.png
-    cout<<"Time at starting is 0 sec"<<endl;
+  // this will be the main file for tesing computer vision and deploying in submarine
+  //Bouy_Ramming
+  //underwatertest
+  //Front/Image651.png
+  cout<<"Time at starting is 0 sec"<<endl;
 
-    string filename = "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
+  string filename = "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
+  VideoCapture capture(filename);
+  //src = imread(filename);
 
-    src = imread(filename);
+  if( !capture.isOpened() )
+  cout<< "Error when reading steam_avi"<<endl;
 
+  int framecounter = 0;
 
+  for( ; ; )
+  {
+
+    capture >> src; 
     if(! src.data )                              // Check for invalid input
     {
         cout <<  "Could not open or find the image" << std::endl ;
@@ -81,7 +89,7 @@ int main( int argc, char** argv )
 
  //   imshow("detect_r", detect_r);
     /////////////////////////////////////////////////////////////////////////////////////////////
-    int color_bouy = filterImageHSV (detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+    int color_bouy = filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
 
     fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
   //  imshow( "Display red", detect_r );
@@ -89,7 +97,7 @@ int main( int argc, char** argv )
 
    vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 0);
     cout<<"red completed"<<endl;
-    imshow( "after red completed" , final_image);
+    //imshow( "after red completed" , final_image);
 
     /////////////////////////////////////////////////////////////////////////////////////////////
  //    imshow("detect_g", detect_g);
@@ -100,7 +108,7 @@ int main( int argc, char** argv )
 
     vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 1);
     cout<<"green completed"<<endl;
-    imshow( "after green completed" , final_image);
+    //imshow( "after green completed" , final_image);
 
 
 
@@ -111,7 +119,7 @@ int main( int argc, char** argv )
 
 
         fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
-       imshow( "Display yellow", detect_y );
+    //   imshow( "Display yellow", detect_y );
 
     vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 2);
     cout<<"yellow completed"<<endl;
@@ -119,16 +127,17 @@ int main( int argc, char** argv )
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    for (int k = 0; k < contours.size(); k++) {
-        cout<<"contour everything:" << contours[k]<<endl;
-    }
+//    for (int k = 0; k < contours.size(); k++) {
+//        cout<<"contour everything:" << contours[k]<<endl;
+//    }
  //   drawcontours( final_image  , contours ,  color_bouy , red_vec , green_vec , yellow_vec );
 
    //   waitKey();
 
 //imshow( "after denoising" , final_image);
 
-    waitKey();
+    waitKey(1000);
 
 
+}
 }

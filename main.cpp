@@ -29,8 +29,9 @@
   vector<double> area1;
 
 ///////////////// tasks ///////////////////////////////
-bool b_detected = false;
 bool validation_gate_done = false;
+bool b_detected = false;
+bool bouy_done = false;
 bool target_bouy_found = false;
 bool red_bouy = false ;
 bool green_bouy = false ;
@@ -75,30 +76,84 @@ bool time_portal_finished = false;
       gettimeofday(&tv0 , 0);
 
 
+    if( !validation_gate_done)
+    {
+        
+        validation_gate_done = true;
+        
+    }
+        
+        
+        
+        
+///////////////////////////////////////////////////ALL BOUT DETECTION //////////////////////////////////////////////////////
+        if( validation_gate_done && !bouy_done)
+        {
+            detect_r = src.clone();
+            detect_g = src.clone();
+            detect_y = src.clone();
 
-      detect_r = src.clone();
-      detect_g = src.clone();
-      detect_y = src.clone();
+            imshow("Source Forward", src);
 
-      imshow("Source Forward", src);
+            Size s = src.size();
 
-      Size s = src.size();
-
-      vector<vector<Point> > contours;
+            vector<vector<Point> > contours;
 
 
-      gettimeofday(&tv1,0);
-      long elap = (tv1.tv_sec - tv0.tv_sec ) * 100000  + tv1.tv_usec - tv0.tv_usec;
+            gettimeofday(&tv1,0);
+            long elap = (tv1.tv_sec - tv0.tv_sec ) * 100000  + tv1.tv_usec - tv0.tv_usec;
 
-      cout<<"Time after initial thresholding : " << elap/1000.0f <<"millisec"<<endl;
+            cout<<"Time after initial thresholding : " << elap/1000.0f <<"millisec"<<endl;
 
-      // red 150 , 100 , 150
-      // green <  140 , 160 , 160
+            // red 150 , 100 , 150
+            // green <  140 , 160 , 160
 
 
-      Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
+            Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
        
        
+            //   imshow("detect_r", detect_r);
+            /////////////////////////////////////////////////////////////////////////////////////////////
+            int color_bouy = filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+
+            fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
+            imshow( "Display red", detect_r );
+
+
+            vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
+            //cout<<"red completed"<<endl;
+            //imshow( "after red completed" , final_image);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////
+            //    imshow("detect_g", detect_g);
+            int color_bouy2 = filter_image_green(detect_g ,src, s.height, s.width, cent_i , 50  , 150 , 100 );
+
+            fastNlMeansDenoising(detect_g,detect_g , 100, 3, 31);
+            imshow( "Display green", detect_g );
+
+            vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
+            // cout<<"green completed"<<endl;
+            //imshow( "after green completed" , final_image);
+
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+            //     imshow("detect_y", detect_y);
+            int color_bouy3 = filter_image(detect_y ,src, s.height, s.width, cent_i , 150  , 180 , 150 );
+
+
+
+            fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
+            imshow( "Display yellow", detect_y );
+
+            vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
+            //cout<<"yellow completed"<<endl;
+            imshow( "Final Detection" , final_image);
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         
         
@@ -109,49 +164,6 @@ bool time_portal_finished = false;
         
         
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-///////////////////////////////////////////////////ALL BOUT DETECTION //////////////////////////////////////////////////////
-      //   imshow("detect_r", detect_r);
-      /////////////////////////////////////////////////////////////////////////////////////////////
-      int color_bouy = filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
-
-      fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-        imshow( "Display red", detect_r );
-
-
-      vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 0);
-      //cout<<"red completed"<<endl;
-      //imshow( "after red completed" , final_image);
-
-      /////////////////////////////////////////////////////////////////////////////////////////////
-      //    imshow("detect_g", detect_g);
-      int color_bouy2 = filter_image_green(detect_g ,src, s.height, s.width, cent_i , 50  , 150 , 100 );
-
-      fastNlMeansDenoising(detect_g,detect_g , 100, 3, 31);
-        imshow( "Display green", detect_g );
-
-      vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 1);
-     // cout<<"green completed"<<endl;
-      //imshow( "after green completed" , final_image);
-
-
-
-      ///////////////////////////////////////////////////////////////////////////////////////////////////////
-      //     imshow("detect_y", detect_y);
-      int color_bouy3 = filter_image(detect_y ,src, s.height, s.width, cent_i , 150  , 180 , 150 );
-
-
-
-      fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
-        imshow( "Display yellow", detect_y );
-
-      vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,  framecounter   , contours , 2);
-      //cout<<"yellow completed"<<endl;
-      imshow( "Final Detection" , final_image);
-
-      ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       waitKey(100);
      

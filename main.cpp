@@ -28,6 +28,18 @@
   vector<Point2i> cent_i(1);
   vector<double> area1;
 
+///////////////// tasks ///////////////////////////////
+bool b_detected = false;
+bool validation_gate_done = false;
+bool target_bouy_found = false;
+bool red_bouy = false ;
+bool green_bouy = false ;
+bool yellow_bouy = false;
+bool time_portal_started = false;
+bool time_portal_finished = false;
+////////////////////////////////////////////////////////
+
+
 
   int main( int argc, char** argv )
 
@@ -52,7 +64,7 @@
         capture >> src;
         cout<<"Framecounter "<<framecounter<<endl;
         
-    if( framecounter%20 == 0){
+    if( framecounter%50 == 0){
         
         if(! src.data )                              // Check for invalid input
       {
@@ -68,12 +80,9 @@
       detect_g = src.clone();
       detect_y = src.clone();
 
-      imshow("w", src);
+      imshow("Source Forward", src);
 
       Size s = src.size();
-
-       // cout<<"Framecounter "<<framecounter<<endl;
-
 
       vector<vector<Point> > contours;
 
@@ -88,8 +97,20 @@
 
 
       Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
-
-
+       
+       
+        
+        
+        
+//////////////////////////////////////////////////// PATH MARKER ///////////////////////////////////////////////////////////
+        
+        
+        
+        
+        
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+///////////////////////////////////////////////////ALL BOUT DETECTION //////////////////////////////////////////////////////
       //   imshow("detect_r", detect_r);
       /////////////////////////////////////////////////////////////////////////////////////////////
       int color_bouy = filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
@@ -130,14 +151,7 @@
 
       ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      //    for (int k = 0; k < contours.size(); k++) {
-      //        cout<<"contour everything:" << contours[k]<<endl;
-      //    }
-      //   drawcontours( final_image  , contours ,  color_bouy , red_vec , green_vec , yellow_vec );
-
-      //   waitKey();
-
-      //imshow( "after denoising" , final_image);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
       waitKey(100);
      

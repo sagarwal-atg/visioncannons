@@ -14,15 +14,8 @@
 
 int filter_image (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
 {
-
-    
-     
-    
     int r[height ][width], g[height ][width] ,b[height][width];
-    
-    
-    
-    
+
     cent_i[0].x= ( floor( width/2));
     cent_i[0].y = (floor( height/2));
     
@@ -125,14 +118,9 @@ int filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Poi
     for(int col = 0; col < width ; col++){
         for(int row = 0; row < height ; row++){
             
-            
-            
             b[row][col] = src.template at<Vec3b>(row,col)[0];
             g[row][col] = src.template at<Vec3b>(row,col)[1];
             r[row][col] = src.template at<Vec3b>(row,col)[2];
-            
-            
-            
             
             // cout<<g[row][col]<<endl;
         }
@@ -179,13 +167,7 @@ int filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Poi
 int filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
 {
     
-    
-    
-    
     int r[height ][width], g[height ][width] ,b[height][width];
-    
-    
-    
     
     cent_i[0].x= ( floor( width/2));
     cent_i[0].y = (floor( height/2));
@@ -208,15 +190,11 @@ int filter_image_green (  Mat detect, Mat src ,  int height , int width , vector
     
     for(int col = 0; col < width ; col++){
         for(int row = 0; row < height ; row++){
-            
-            
+        
             
             b[row][col] = src.template at<Vec3b>(row,col)[0];
             g[row][col] = src.template at<Vec3b>(row,col)[1];
             r[row][col] = src.template at<Vec3b>(row,col)[2];
-            
-            
-            
             
             // cout<<g[row][col]<<endl;
         }

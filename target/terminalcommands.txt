@@ -1,0 +1,4 @@
+export PKG_CONFIG_PATH=/Users/Somi/Desktop/ECEInvidualStudy/opencv-3.0.0/build/unix-install/
+
+
+g++ main.cpp `pkg-config opencv --cflags --libs` -o main.o

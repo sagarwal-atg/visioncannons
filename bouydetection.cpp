@@ -267,16 +267,12 @@ void thresh_callback( Mat final_image , double yawO , vector<Point2i> cent_i , v
     vector<float>radius( contours.size() );
     
     for( int i = 0; i < contours.size(); i++ )
-    {   approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
+    {  approxPolyDP( Mat(contours[i]), contours_poly[i], 3, true );
         // boundRect[i] = boundingRect( Mat(contours_poly[i]) );
         minEnclosingCircle( (Mat)contours_poly[i], center[i], radius[i] );
     }
     
  //   double b = contourArea( contours[0],false);
-    
-  
-    
-   
     
     for( int i = 0; i< contours.size(); i++ ) // iterate through each contour.
     {

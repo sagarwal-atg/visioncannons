@@ -124,7 +124,10 @@ bool time_portal_finished = false;
 
 
             vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
-            //cout<<"red completed"<<endl;
+            if( red_vec.size() > 0 ){
+                        // follow the red bouy
+                
+            }
             //imshow( "after red completed" , final_image);
 
             /////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +138,6 @@ bool time_portal_finished = false;
             imshow( "Display green", detect_g );
 
             vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
-            // cout<<"green completed"<<endl;
             //imshow( "after green completed" , final_image);
 
 
@@ -150,7 +152,6 @@ bool time_portal_finished = false;
             imshow( "Display yellow", detect_y );
 
             vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
-            //cout<<"yellow completed"<<endl;
             imshow( "Final Detection" , final_image);
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////

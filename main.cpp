@@ -107,7 +107,8 @@ bool time_portal_finished = false;
 
             // red 150 , 100 , 150
             // green <  140 , 160 , 160
-
+                // helllo i am here
+            
 
             Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
        

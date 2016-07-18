@@ -8,3 +8,8 @@
 
 #include "movement.hpp"
 
+int direction(vector<Point2i>  target){
+
+
+    return 1; 
+}

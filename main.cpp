@@ -75,13 +75,15 @@ bool time_portal_finished = false;
       struct timeval tv0,tv1;
       gettimeofday(&tv0 , 0);
 
+        ////////////////////////////////////////// NOT SURE IF WE WILL BE DOING THIS ///////////
+        /*
 
     if( !validation_gate_done)
     {
         
         validation_gate_done = true;
         
-    }
+    }*/
         
         
         

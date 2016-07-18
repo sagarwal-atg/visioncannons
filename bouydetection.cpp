@@ -312,11 +312,6 @@ void thresh_callback( Mat final_image , double yawO , vector<Point2i> cent_i , v
     int dist_x = center[0].x - cent_i[0].x;
     int dist_y = center[0].y - cent_i[0].y;
         
-    
-    
-        
-        
-    
     cout<< " dist_x = " << dist_x << " dist_y =" << dist_y <<endl;
     
     //int ang = atan2 (dist_y,dist_x) * 180 / PI;

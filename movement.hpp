@@ -16,7 +16,7 @@ using namespace std;
 using namespace cv;
 
 /// Function header
-
+int direction(vector<Point2i> target);
 
 #endif /* movement_hpp */
 

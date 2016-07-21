@@ -75,7 +75,11 @@ bool time_portal_finished = false;
         
         cout<<"Framecounter "<<framecounter<<endl;
         
-    if( framecounter%50 == 0){
+        
+        
+        
+     /// skipping 50 frames
+    if( framecounter%10 == 0){
         
         if(!pathmark.data)                              // Check for invalid input
       {
@@ -177,17 +181,17 @@ bool time_portal_finished = false;
         
         
         imshow("Source Forward", pathmark);
-                   Size s = pathmark.size();
-                  detect_r = pathmark.clone();
+        Size s = pathmark.size();
+        detect_r = pathmark.clone();
         cout << "width"  << s.width  << endl;
         cout << "height" << s.height << endl;
         
         //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
-        filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 110 );
-        filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 150  , 150 , 100 );
+        filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 170 , 90 );
+        filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
         
-                fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-                  imshow( "Display red", detect_r );
+        fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
+        imshow( "Display red", detect_r );
 
         
 

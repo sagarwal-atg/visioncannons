@@ -32,18 +32,49 @@ void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , i
     cout<< " dist_x = " << dist_x << " dist_y =" << dist_y <<endl;
     
     
-    if ( center.x > cent_i[0].x) {
+ ////////////// Calculating the angle /////////////////////////////////////
     
+    
+    ////////// calculating the yaw axis ///////////////
+    if ( center.x > cent_i[0].x) {
+        ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;
+        
+        yawO =  -ang - 180;
+        
+        cout<< "The output yaw is "<<yawO<<endl;
+
+        }
+    else {
+        
+        ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;
+        
+        yawO =  -ang - 180;
+        
+        cout<< "The output yaw is "<<yawO<<endl;
+
+        }
+    
+    ////////////////// calculating the PITCH ///////////////////////////////
+    if ( center.y > cent_i[0].y)
+    {
+        ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;
+        
+        yawO =  -ang - 180;
+        
+        cout<< "The output yaw is "<<yawO<<endl;
+
     }
     else {
+        
+        ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;
+        
+        yawO =  -ang - 180;
+        
+        cout<< "The output yaw is "<<yawO<<endl;
+    
     }
     //int ang = atan2 (dist_y,dist_x) * 180 / PI;
     
-    ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;
-    
-    yawO =  -ang - 180;
-    
-    cout<< "The output yaw is "<<yawO<<endl;
     
     int area = (int)largest_area;
     
@@ -53,6 +84,10 @@ void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , i
     cout<< "frame no. = " << framecounter << endl;
     
     area1.push_back(area);
+    
+    
+    ///  vague description if we are going in correct direction
+    /// comparing past 3 areas if the area has increased or not s
     
     if( framecounter > 3)
     {

@@ -31,6 +31,12 @@ void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , i
     
     cout<< " dist_x = " << dist_x << " dist_y =" << dist_y <<endl;
     
+    
+    if ( center.x > cent_i[0].x) {
+    
+    }
+    else {
+    }
     //int ang = atan2 (dist_y,dist_x) * 180 / PI;
     
     ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;

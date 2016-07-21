@@ -291,48 +291,6 @@ void thresh_callback( Mat final_image , double yawO , vector<Point2i> cent_i , v
         
     
     
-    //////////////////////////////////////////////////////////////////////////////////
-    /////////// FInding the angle ////////////////////////////////////////////////////
- 
-    int dist_x = center[0].x - cent_i[0].x;
-    int dist_y = center[0].y - cent_i[0].y;
-        
-    cout<< " dist_x = " << dist_x << " dist_y =" << dist_y <<endl;
-    
-    //int ang = atan2 (dist_y,dist_x) * 180 / PI;
-    
-     ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;
-    
-  //cout<< "The target is "<< (  90  -  (ang - 90 ) ) << " degrees from x-axis"<<endl;
-    
-      //  if( dist_x > 0 && )
-    
-    
-   // yawO = yawO  - (-ang);
-        
-        yawO =  -ang - 180   ;
-
-    cout<< "The output yaw is "<<yawO<<endl;
-    
-          int area = (int)largest_area;
-          
-    cout<<"area = "<<area<<endl;
-    cout<<endl;
-    
-    cout<< "frame no. = " << g << endl;
-    
-    area1.push_back(area);
-    
-    if( g > 3)
-    {
-        if( (area1[g-2] + area1[g-1] + area1[g])/3 > area )
-            cout<<" wrong direction "<<endl;
-        else
-            cout<<" right direction "<<endl;
-    }
-    
-    
-    
     /////////////////////////////////////////////////////////////////////////////////////////
     
     /////////////////// putting the label //////////////////////////////////

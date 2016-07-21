@@ -11,16 +11,17 @@
 #define PI 3.14159265
 
 void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1){
-         double ang = 0;
     
-     double largest_area = contourArea( target , false);
+    double ang = 0;
+    
+    double largest_area = contourArea( target , false);
     
     Point2f center( target.size() );
-    float radius( target.size() );
-  //  vector<Point>  contours_poly( target.size() );
+    float   radius( target.size() );
+    //  vector<Point>  contours_poly( target.size() );
     
-       // approxPolyDP( Mat(target), contours_poly , 3, true );
-        minEnclosingCircle( target , center, radius);
+    // approxPolyDP( Mat(target), contours_poly , 3, true );
+    minEnclosingCircle( target , center, radius);
 
     //////////////////////////////////////////////////////////////////////////////////
     /////////// FInding the angle ////////////////////////////////////////////////////
@@ -34,7 +35,7 @@ void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , i
     
     ang = atan2 ( (dist_x) , (dist_y)) * 180 / PI;
     
-    yawO =  -ang - 180   ;
+    yawO =  -ang - 180;
     
     cout<< "The output yaw is "<<yawO<<endl;
     
@@ -61,7 +62,7 @@ void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , i
 
 void changeaxis(Rect target , double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1)
 {
-                
+    
     
     
 }

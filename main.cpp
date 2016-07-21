@@ -183,8 +183,8 @@ bool time_portal_finished = false;
         cout << "height" << s.height << endl;
         
         //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
-        int color_bouy = filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 110 );
-        int col = filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 150  , 150 , 100 );
+        filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 110 );
+        filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 150  , 150 , 100 );
         
                 fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
                   imshow( "Display red", detect_r );

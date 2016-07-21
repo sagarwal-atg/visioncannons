@@ -18,7 +18,7 @@ using namespace cv;
 /// Function header
 void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1);
 
-//void changeaxis(vector<Point>  target , double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1);
+void changeaxis(Rect target , double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1);
 
 
 #endif /* movement_hpp */

@@ -11,8 +11,7 @@
 
 #define PI 3.14159265
 
-
-int filter_image (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
+void filter_image (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
 {
     int r[height ][width], g[height ][width] ,b[height][width];
 
@@ -81,14 +80,11 @@ int filter_image (  Mat detect, Mat src ,  int height , int width , vector<Point
         }
     }
 
-    
-    
-    
-    return 0;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
+void filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
 {
     int r[height ][width], g[height ][width] ,b[height][width];
     
@@ -157,14 +153,11 @@ int filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Poi
     }
     
     
-    
-    
-    return 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
+void filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
 {
     
     int r[height ][width], g[height ][width] ,b[height][width];
@@ -231,10 +224,6 @@ int filter_image_green (  Mat detect, Mat src ,  int height , int width , vector
         }
     }
     
-    
-    
-    
-    return 0;
 }
 
 

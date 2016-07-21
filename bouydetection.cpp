@@ -16,7 +16,7 @@ int filter_image (  Mat detect, Mat src ,  int height , int width , vector<Point
 {
     int r[height ][width], g[height ][width] ,b[height][width];
 
-    cent_i[0].x= ( floor( width/2));
+    cent_i[0].x=  (floor( width/2));
     cent_i[0].y = (floor( height/2));
     
     
@@ -93,7 +93,7 @@ int filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Poi
     int r[height ][width], g[height ][width] ,b[height][width];
     
     Mat hsv;     // = src.clone();
-    cvtColor(src, hsv, CV_BGR2HSV);
+    cvtColor(src, hsv, CV_RGB2HSV_FULL);
     
     imshow("hsv", hsv);
     cent_i[0].x= ( floor( width/2));

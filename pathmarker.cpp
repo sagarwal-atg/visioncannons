@@ -9,7 +9,7 @@
 #include "pathmarker.hpp"
 #include "bouydetection.hpp"
 
-void path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vector<double> area1 ,  int thresh, int max_thresh , RNG rng , int g)
+Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vector<double> area1 ,  int thresh, int max_thresh , RNG rng , int g)
 {
     
     Mat threshold_output;
@@ -52,7 +52,6 @@ void path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
             }
         }
         
-        // minEnclosingCircle( (Mat)contours_poly[largest_contour_index], center[largest_contour_index], radius[largest_contour_index] );
         
         /// Draw  bonding rects
         Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
@@ -60,9 +59,10 @@ void path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         
     
             Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-           
+        
             rectangle( drawing, boundRect[l_c_i].tl(), boundRect[l_c_i].br(), color, 2, 8, 0 );
            
+        
             setLabel(drawing, "Target", contours[0]);
             
   
@@ -78,24 +78,19 @@ void path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         int rec_top_w =  boundRect[l_c_i].tl().x + ( boundRect[l_c_i].br().x - boundRect[l_c_i].tl().x ) /2 ;
      //   int rec_bot_w = rec_top_w + (boundRect[l_c_i].br().y - boundRect[l_c_i].tl().y);
         
-        {   std::vector<cv::Point> c_print;
+        {   std::vector<cv::Point> rect_center;
             Point temp;
             
             temp.x = rec_top_w;
             temp.y = boundRect[l_c_i].tl().y;
-            c_print.push_back(temp);
+            rect_center.push_back(temp);
             
             temp.x = rec_top_w;
             temp.y = boundRect[l_c_i].br().y;
-            c_print.push_back(temp);
+            rect_center.push_back(temp);
             
-            MyLine(drawing , (c_print[0] ), (c_print[1]));
+            MyLine(drawing , (rect_center[0] ), (rect_center[1]));
             
-            
-            
-            
-
-        
         }
      //   cout << boundRect[l_c_i].br() << boundRect[l_c_i].tl() << endl;
      //   cout << boundRect[l_c_i]<< endl;
@@ -152,6 +147,12 @@ void path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         /// Show in a window
         namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
         imshow( "Contours", drawing );
+        
+        return boundRect[l_c_i];
     }
+    
+   Rect nobouy;
+    
+    return  nobouy;
 
 }

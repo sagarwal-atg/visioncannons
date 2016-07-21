@@ -25,7 +25,7 @@ using namespace std;
 using namespace cv;
 
 /// Function header
-void path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vector<double> area1 ,  int thresh, int max_thresh , RNG rng , int g);
+Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vector<double> area1 ,  int thresh, int max_thresh , RNG rng , int g);
 //void drawinglogistics();
 
 

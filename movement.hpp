@@ -16,7 +16,10 @@ using namespace std;
 using namespace cv;
 
 /// Function header
-int direction(vector<Point2i> target);
+void direction(vector<Point>  target , double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1);
+
+//void changeaxis(vector<Point>  target , double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1);
+
 
 #endif /* movement_hpp */
 

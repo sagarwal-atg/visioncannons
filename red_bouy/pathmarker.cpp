@@ -60,15 +60,21 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
     
             Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         
-         //   rectangle( drawing, boundRect[l_c_i].tl(), boundRect[l_c_i].br(), color, 2, 8, 0 );
+            rectangle( drawing, boundRect[l_c_i].tl(), boundRect[l_c_i].br(), color, 2, 8, 0 );
            
         
-        //    setLabel(drawing, "Target", contours[0]);
+            setLabel(drawing, "Target", contours[0]);
             
-       // Mat fit_line_image = drawing.clone();
-
+  
         
-////////////////////////// Making the line at the center of the rectangle ////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////
+        
+        /////////////////// putting the label //////////////////////////////////
+        
+        /////////////////////////////////////////////////////////////////////////////////////
+        ///////  drawing the lines n the image //////////////////////////////////////////////
+        
+        
         int rec_top_w =  boundRect[l_c_i].tl().x + ( boundRect[l_c_i].br().x - boundRect[l_c_i].tl().x ) /2 ;
      //   int rec_bot_w = rec_top_w + (boundRect[l_c_i].br().y - boundRect[l_c_i].tl().y);
         
@@ -83,30 +89,9 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
             temp.y = boundRect[l_c_i].br().y;
             rect_center.push_back(temp);
             
-         //   MyLine(drawing , rect_center[0] , rect_center[1]);
-            
-         //   MyLine(drawing , boundRect[l_c_i].tl(), boundRect[l_c_i].br());
-
+            MyLine(drawing , (rect_center[0] ), (rect_center[1]));
             
         }
-        vector<float> fit_line(4);
-        
-        fitLine(contours_poly[l_c_i], fit_line, CV_DIST_L2, 0, 0.01, 0.01);
-        
-        Point fitline_start ;
-        fitline_start.x = fit_line[2] - fit_line[0] * 100;
-        fitline_start.y = fit_line[3] - fit_line[1] * 100;
-        
-        Point fitline_end ;
-        
-        fitline_end.x = fit_line[2] + fit_line[0] * 100;
-        fitline_end.y = fit_line[3] + fit_line[1] * 100;
-    
-        
-        
-        line(final_image, fitline_start, fitline_end, Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) ) , 5 , 8 , 0  );
-        
-        
      //   cout << boundRect[l_c_i].br() << boundRect[l_c_i].tl() << endl;
      //   cout << boundRect[l_c_i]<< endl;
 
@@ -114,34 +99,6 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         ////////////////////////////////////////////////////////////////////////////////
         
         // string x = -ang;
-
-///////////////////////////drawing line at the center of the image //////////////////////////////////////////////////////////////
-        
-        vector<Point2i> cent_k(1);
-        vector<Point2i> cent_j(1);
-        
-        cent_k[0] = cent_i[0];
-        cent_k[0].x = cent_i[0].x - 20;
-        
-        cent_j[0] = cent_i[0];
-        cent_j[0].x = cent_i[0].x + 20;
-        
-        
-        // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        circle( drawing , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-        //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-        //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-        MyLine(drawing , (cent_k[0] ), (cent_j[0]));
-        
-        cent_k[0] = cent_i[0];
-        cent_k[0].y = cent_i[0].y - 20;
-        
-        cent_j[0] = cent_i[0];
-        cent_j[0].y = cent_i[0].y + 20;
-        
-        MyLine(final_image , (cent_k[0] ), (cent_j[0]));
-        
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         
         std::vector<cv::Point> c_print;
@@ -164,7 +121,7 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         c_print.push_back(temp);
         
         
-        setLabel(drawing, "Property of SDCR" , c_print);
+        setLabel(drawing, "Property of Somi" , c_print);
         
         stringstream ang_s;
         ang_s<< -ang;
@@ -189,7 +146,7 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         setLabel(drawing, s , c_print);
         /// Show in a window
         namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
-        imshow( "Contours", final_image );
+        imshow( "Contours", drawing );
         
         return boundRect[l_c_i];
     }

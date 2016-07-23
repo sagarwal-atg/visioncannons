@@ -15,7 +15,8 @@ void filter_image (  Mat detect, Mat src ,  int height , int width , vector<Poin
 {
     int r[height ][width], g[height ][width] ,b[height][width];
 
-
+    cent_i[0].x=  (floor( width/2));
+    cent_i[0].y = (floor( height/2));
     
     
     cout<<"Center of the picture: "<<cent_i[0]<<endl;
@@ -292,7 +293,19 @@ vector<Point> thresh_callback( Mat final_image , double yawO , vector<Point2i> c
         circle( drawing, center[i], (int)radius[i], color, 2, 8, 0 );
         setLabel(drawing, "Target", contours[0]);    // Triangles
         
+        
     }
+        imshow("Final Image", drawing);
+        return contours[largest_contour_index];
+  }
+    //returns empty bouy if nothing detected
+    vector<Point> nobouy;
+    
+    return  nobouy;
+
+    
+}
+
     
     
 //    /////////////////////////////////////////////////////////////////////////////////////////
@@ -300,95 +313,84 @@ vector<Point> thresh_callback( Mat final_image , double yawO , vector<Point2i> c
 //    /////////////////// putting the label //////////////////////////////////
 //    
 //    /////////////////////////////////////////////////////////////////////////////////////
-//    ///////  drawing the lines in the center of the image //////////////////////////////////////////////
-    
-    vector<Point2i> cent_k(1);
-    vector<Point2i> cent_j(1);
-    
-    cent_k[0] = cent_i[0];
-    cent_k[0].x = cent_i[0].x - 20;
-    
-    cent_j[0] = cent_i[0];
-    cent_j[0].x = cent_i[0].x + 20;
-    
-    
-    // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-    circle( drawing , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-    //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-    //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-    MyLine(drawing , (cent_k[0] ), (cent_j[0]));
-    
-    cent_k[0] = cent_i[0];
-    cent_k[0].y = cent_i[0].y - 20;
-    
-    cent_j[0] = cent_i[0];
-    cent_j[0].y = cent_i[0].y + 20;
-    
-    MyLine(drawing , (cent_k[0] ), (cent_j[0]));
-    ////////////////////////////////////////////////////////////////////////////////
-    
-    // string x = -ang;
-    
-    
-    std::vector<cv::Point> c_print;
-    
-    Point temp;
-    
-    temp.x = 10;
-    temp.y = 10;
-    c_print.push_back(temp);
-    
-    temp.x = 100;
-    temp.y = 10;
-    c_print.push_back(temp);
-    
-    temp.x = 10;
-    temp.y = 20;
-    c_print.push_back(temp);
-    temp.x = 100;
-    temp.y = 20;
-    c_print.push_back(temp);
-    
-    
-    setLabel(drawing, "Property of SDCR" , c_print);
-    
-    stringstream ang_s;
-    ang_s<< -ang;
-    string ang_s1 = ang_s.str();
-    string s = "The angle of the target from x-axis is " + ang_s1;
-    
-    temp.x = 10;
-    temp.y = 30;
-    c_print.push_back(temp);
-    
-    temp.x = 100;
-    temp.y = 30;
-    c_print.push_back(temp);
-    
-    temp.x = 10;
-    temp.y = 40;
-    c_print.push_back(temp);
-    temp.x = 100;
-    temp.y = 40;
-    c_print.push_back(temp);
-    
-    setLabel(drawing, s , c_print);
-    /// Show in a window
-    namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
+//    ///////  drawing the lines n the image //////////////////////////////////////////////
+//    
+//    vector<Point2i> cent_k(1);
+//    vector<Point2i> cent_j(1);
+//    
+//    cent_k[0] = cent_i[0];
+//    cent_k[0].x = cent_i[0].x - 20;
+//    
+//    cent_j[0] = cent_i[0];
+//    cent_j[0].x = cent_i[0].x + 20;
+//    
+//    
+//    // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+//    circle( drawing , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+//    //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+//    //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+//    MyLine(drawing , (cent_k[0] ), (cent_j[0]));
+//    
+//    cent_k[0] = cent_i[0];
+//    cent_k[0].y = cent_i[0].y - 20;
+//    
+//    cent_j[0] = cent_i[0];
+//    cent_j[0].y = cent_i[0].y + 20;
+//    
+//    MyLine(drawing , (cent_k[0] ), (cent_j[0]));
+//    ////////////////////////////////////////////////////////////////////////////////
+//    
+//    // string x = -ang;
+//    
+//    
+//    std::vector<cv::Point> c_print;
+//    
+//    Point temp;
+//    
+//    temp.x = 10;
+//    temp.y = 10;
+//    c_print.push_back(temp);
+//    
+//    temp.x = 100;
+//    temp.y = 10;
+//    c_print.push_back(temp);
+//    
+//    temp.x = 10;
+//    temp.y = 20;
+//    c_print.push_back(temp);
+//    temp.x = 100;
+//    temp.y = 20;
+//    c_print.push_back(temp);
+//    
+//    
+//    setLabel(drawing, "Property of SDCR" , c_print);
+//    
+//    stringstream ang_s;
+//    ang_s<< -ang;
+//    string ang_s1 = ang_s.str();
+//    string s = "The angle of the target from x-axis is " + ang_s1;
+//    
+//    temp.x = 10;
+//    temp.y = 30;
+//    c_print.push_back(temp);
+//    
+//    temp.x = 100;
+//    temp.y = 30;
+//    c_print.push_back(temp);
+//    
+//    temp.x = 10;
+//    temp.y = 40;
+//    c_print.push_back(temp);
+//    temp.x = 100;
+//    temp.y = 40;
+//    c_print.push_back(temp);
+//    
+//    setLabel(drawing, s , c_print);
+//    /// Show in a window
+//    namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
 //    imshow( "Contours", drawing );
-      
-
-        imshow("Final Image", drawing);
-        return contours[largest_contour_index];
-    }
-    //returns empty bouy if nothing detected
-    vector<Point> nobouy;
-    
-    return  nobouy;
-    
-    
-}
-
+//      }
+//}
 
 ////////////////////////////////////////////////////////////////////////////////////////
 

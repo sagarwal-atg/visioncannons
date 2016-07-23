@@ -91,7 +91,14 @@ void filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Po
     Mat hsv;     // = src.clone();
     cvtColor(src, hsv, CV_RGB2HSV_FULL);
     
-    imshow("hsv", hsv);
+    vector<Mat> channels;
+    split(hsv, channels);
+    
+    imshow("Hue", channels[0]);
+    imshow("Saturation", channels[1]);
+    imshow("Value", channels[2]);
+    
+    //imshow("hsv", hsv);
     cent_i[0].x= ( floor( width/2));
     cent_i[0].y = (floor( height/2));
     

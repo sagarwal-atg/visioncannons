@@ -52,24 +52,24 @@ bool time_portal_finished = false;
     cout<<"Time at starting is 0 sec"<<endl;
 
     string filename = "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
-    string filename2 = "/Users/Somi/Desktop/_Recordings_/pathmarker480p.mp4";
+//    string filename2 = "/Users/Somi/Desktop/_Recordings_/pathmarker480p.mp4";
 
     VideoCapture capture(filename);
-    VideoCapture pathcap(filename2);
-    //src = imread(filename);
+//    VideoCapture pathcap(filename2);
+    src = imread(filename);
       
-      pathcap.set(CV_CAP_PROP_FRAME_WIDTH,640);
-      pathcap.set(CV_CAP_PROP_FRAME_HEIGHT,480);
+//      pathcap.set(CV_CAP_PROP_FRAME_WIDTH,640);
+//      pathcap.set(CV_CAP_PROP_FRAME_HEIGHT,480);
 
     if( !capture.isOpened() )
     cout<< "Error when reading steam_avi"<<endl;
 
     int framecounter = 0;
     
-    for( ; ; )
-    {
-        capture >> src;
-        pathcap.read (pathmark);
+//    for( ; ; )
+//    {
+      //  capture >> src;
+     //   pathcap.read (pathmark);
         
         
         
@@ -79,9 +79,9 @@ bool time_portal_finished = false;
         
         
      /// skipping 50 frames
-    if( framecounter%10 == 0){
+    if( framecounter%50 == 0){
         
-        if(!pathmark.data)                              // Check for invalid input
+        if(!src.data)                              // Check for invalid input
       {
         cout <<  "Could not open or find the image" << std::endl ;
         return -1;
@@ -105,108 +105,108 @@ bool time_portal_finished = false;
 ///////////////////////////////////////////////////ALL BOUT DETECTION //////////////////////////////////////////////////////
         validation_gate_done = true;
         
-//        if( validation_gate_done && !bouy_done)
-//        {
-//            detect_r = src.clone();
-//            detect_g = src.clone();
-//            detect_y = src.clone();
-//
-//            imshow("Source Forward", src);
-//
-//            Size s = src.size();
-//
-//            vector<vector<Point> > contours;
-//
-//
-//            gettimeofday(&tv1,0);
-//            long elap = (tv1.tv_sec - tv0.tv_sec ) * 100000  + tv1.tv_usec - tv0.tv_usec;
-//
-//            cout<<"Time after initial thresholding : " << elap/1000.0f <<"millisec"<<endl;
-//
-//            // red 150 , 100 , 150
-//            // green <  140 , 160 , 160
-//                // helllo i am here
-//            
-//
-//            Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
-//       
-//       
-//            //   imshow("detect_r", detect_r);
-//            /////////////////////////////////////////////////////////////////////////////////////////////
-//            int color_bouy = filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
-//
-//            fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-//            imshow( "Display red", detect_r );
-//
-//
-//            vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
-//            if( red_vec.size() > 0 ){
-//                        // follow the red bouy
-//                
-//            }
-//            //imshow( "after red completed" , final_image);
-//
-//            /////////////////////////////////////////////////////////////////////////////////////////////
-//            //    imshow("detect_g", detect_g);
-//            int color_bouy2 = filter_image_green(detect_g ,src, s.height, s.width, cent_i , 50  , 150 , 100 );
-//
-//            fastNlMeansDenoising(detect_g,detect_g , 100, 3, 31);
-//            imshow( "Display green", detect_g );
-//
-//            vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
-//            //imshow( "after green completed" , final_image);
-//
-//
-//
-//            ///////////////////////////////////////////////////////////////////////////////////////////////////////
-//            //     imshow("detect_y", detect_y);
-//            int color_bouy3 = filter_image(detect_y ,src, s.height, s.width, cent_i , 150  , 180 , 150 );
-//
-//
-//
-//            fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
-//            imshow( "Display yellow", detect_y );
-//
-//            vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
-//            imshow( "Final Detection" , final_image);
-//
-//            ///////////////////////////////////////////////////////////////////////////////////////////////////////
-//        }
-//
+        if( validation_gate_done && !bouy_done)
+        {
+            detect_r = src.clone();
+            detect_g = src.clone();
+            detect_y = src.clone();
+
+            imshow("Source Forward", src);
+
+            Size s = src.size();
+
+            vector<vector<Point> > contours;
+
+
+            gettimeofday(&tv1,0);
+            long elap = (tv1.tv_sec - tv0.tv_sec ) * 100000  + tv1.tv_usec - tv0.tv_usec;
+
+            cout<<"Time after initial thresholding : " << elap/1000.0f <<"millisec"<<endl;
+
+            // red 150 , 100 , 150
+            // green <  140 , 160 , 160
+                // helllo i am here
+            
+
+            Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
+       
+       
+            //   imshow("detect_r", detect_r);
+            /////////////////////////////////////////////////////////////////////////////////////////////
+             filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+
+            fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
+            imshow( "Display red", detect_r );
+
+
+            vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
+            if( red_vec.size() > 0 ){
+                        // follow the red bouy
+                
+            }
+            //imshow( "after red completed" , final_image);
+
+            /////////////////////////////////////////////////////////////////////////////////////////////
+            //    imshow("detect_g", detect_g);
+             filter_image_green(detect_g ,src, s.height, s.width, cent_i , 50  , 150 , 100 );
+
+            fastNlMeansDenoising(detect_g,detect_g , 100, 3, 31);
+            imshow( "Display green", detect_g );
+
+            vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
+            //imshow( "after green completed" , final_image);
+
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+            //     imshow("detect_y", detect_y);
+             filter_image(detect_y ,src, s.height, s.width, cent_i , 150  , 180 , 150 );
+
+
+
+            fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
+            imshow( "Display yellow", detect_y );
+
+            vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
+            imshow( "Final Detection" , final_image);
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         
         
 //////////////////////////////////////////////////// PATH MARKER ///////////////////////////////////////////////////////////
         
-        
-        imshow("Source Forward", pathmark);
-        Size s = pathmark.size();
-        detect_r = pathmark.clone();
-        cout << "width"  << s.width  << endl;
-        cout << "height" << s.height << endl;
-        
-        //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
-        filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 170 , 90 );
-        filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
-        
-        fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-        imshow( "Display red", detect_r );
-
-        
-
-        Rect pathrect = path_marker(  detect_r ,  yawI , cent_i ,  area1 ,  thresh,  max_thresh ,  rng ,  framecounter);
-        
-//        imshow("pathmarker", path_image);
+//        
+//        imshow("Source Forward", pathmark);
+//        Size s = pathmark.size();
+//        detect_r = pathmark.clone();
+//        cout << "width"  << s.width  << endl;
+//        cout << "height" << s.height << endl;
+//        
+//        //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
+//      //  filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 170 , 90 );
+//        filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
+//        
+//        fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
+//        //imshow( "Display red", detect_r );
+//
+//        
+//
+//        Rect pathrect = path_marker(  detect_r ,  yawI , cent_i ,  area1 ,  thresh,  max_thresh ,  rng ,  framecounter);
+//        
+////        imshow("pathmarker", path_image);
         
         
         
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-      waitKey(100);
+      waitKey(1000);
      
 
     }
-         framecounter++;
-   }
+//         framecounter++;
+//   }
   }

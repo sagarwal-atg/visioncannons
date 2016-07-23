@@ -9,6 +9,9 @@
 #include "pathmarker.hpp"
 #include "bouydetection.hpp"
 
+#define PI 3.14159265
+
+
 Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vector<double> area1 ,  int thresh, int max_thresh , RNG rng , int g)
 {
     
@@ -58,7 +61,7 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         
         
     
-            Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         
          //   rectangle( drawing, boundRect[l_c_i].tl(), boundRect[l_c_i].br(), color, 2, 8, 0 );
            
@@ -94,26 +97,23 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         fitLine(contours_poly[l_c_i], fit_line, CV_DIST_L2, 0, 0.01, 0.01);
         
         Point fitline_start ;
-        fitline_start.x = fit_line[2] - fit_line[0] * 100;
-        fitline_start.y = fit_line[3] - fit_line[1] * 100;
+        fitline_start.x = fit_line[2] - fit_line[0] * 200;
+        fitline_start.y = fit_line[3] - fit_line[1] * 200;
         
         Point fitline_end ;
         
-        fitline_end.x = fit_line[2] + fit_line[0] * 100;
-        fitline_end.y = fit_line[3] + fit_line[1] * 100;
+        fitline_end.x = fit_line[2] + fit_line[0] * 200;
+        fitline_end.y = fit_line[3] + fit_line[1] * 200;
     
         
         
-        line(final_image, fitline_start, fitline_end, Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) ) , 5 , 8 , 0  );
+        line(final_image, fitline_start, fitline_end, color , 5 , 8 , 0  );
         
+        if( ang > 0 &&  ang ) {
         
-     //   cout << boundRect[l_c_i].br() << boundRect[l_c_i].tl() << endl;
-     //   cout << boundRect[l_c_i]<< endl;
-
-        
-        ////////////////////////////////////////////////////////////////////////////////
-        
-        // string x = -ang;
+        ang = atan2(fit_line[0], fit_line[1]) * 180 / PI;
+            cout<<"The angle of the pathmarker is " << ang <<endl;
+        }
 
 ///////////////////////////drawing line at the center of the image //////////////////////////////////////////////////////////////
         
@@ -128,10 +128,10 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         
         
         // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        circle( drawing , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+        circle( final_image , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
         //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
         //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-        MyLine(drawing , (cent_k[0] ), (cent_j[0]));
+        MyLine(final_image , (cent_k[0] ), (cent_j[0]));
         
         cent_k[0] = cent_i[0];
         cent_k[0].y = cent_i[0].y - 20;
@@ -164,7 +164,7 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         c_print.push_back(temp);
         
         
-        setLabel(drawing, "Property of SDCR" , c_print);
+        setLabel(final_image, "Property of SDCR" , c_print);
         
         stringstream ang_s;
         ang_s<< -ang;

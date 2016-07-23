@@ -302,29 +302,30 @@ vector<Point> thresh_callback( Mat final_image , double yawO , vector<Point2i> c
 //    /////////////////////////////////////////////////////////////////////////////////////
 //    ///////  drawing the lines in the center of the image //////////////////////////////////////////////
     
-    vector<Point2i> cent_k(1);
-    vector<Point2i> cent_j(1);
-    
-    cent_k[0] = cent_i[0];
-    cent_k[0].x = cent_i[0].x - 20;
-    
-    cent_j[0] = cent_i[0];
-    cent_j[0].x = cent_i[0].x + 20;
-    
-    
-    // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-    circle( drawing , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-    //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-    //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-    MyLine(drawing , (cent_k[0] ), (cent_j[0]));
-    
-    cent_k[0] = cent_i[0];
-    cent_k[0].y = cent_i[0].y - 20;
-    
-    cent_j[0] = cent_i[0];
-    cent_j[0].y = cent_i[0].y + 20;
-    
-    MyLine(drawing , (cent_k[0] ), (cent_j[0]));
+        vector<Point2i> cent_k(1);
+        vector<Point2i> cent_j(1);
+        
+        cent_k[0] = cent_i[0];
+        cent_k[0].x = cent_i[0].x - 20;
+        
+        cent_j[0] = cent_i[0];
+        cent_j[0].x = cent_i[0].x + 20;
+        
+        
+        // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        circle( drawing , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+        //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+        //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+        MyLine(drawing , (cent_k[0] ), (cent_j[0]));
+        
+        cent_k[0] = cent_i[0];
+        cent_k[0].y = cent_i[0].y - 20;
+        
+        cent_j[0] = cent_i[0];
+        cent_j[0].y = cent_i[0].y + 20;
+        
+        MyLine(drawing , (cent_k[0] ), (cent_j[0]));
+
     ////////////////////////////////////////////////////////////////////////////////
     
     // string x = -ang;

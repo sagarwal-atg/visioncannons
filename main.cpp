@@ -79,7 +79,7 @@ int main( int argc, char** argv )
         
         
         /// skipping 50 frames
-        if( framecounter%10 == 0){
+        if( framecounter% 5 == 0){
             
             if(!pathmark.data)                              // Check for invalid input
             {
@@ -97,7 +97,7 @@ int main( int argc, char** argv )
              validation_gate_done = true;
              
              }*/
-            Size size = src.size();
+            Size size = pathmark.size();
             vector<Point2i> cent_i(1);
             
             

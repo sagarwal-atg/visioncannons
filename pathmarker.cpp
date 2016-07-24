@@ -113,7 +113,7 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         
         
         
-        ///  
+        ///  fit_line[1] the y -axis angle and fit_line[0] x-axis. We make fit_line[0] -ve because in image processing the z values decrease as we go down
         ang = atan(-(fit_line[0]) /fit_line[1]) * 180 / PI;
             cout<<"The angle of the pathmarker is " << ang <<endl;
        // }

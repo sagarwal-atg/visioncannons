@@ -51,10 +51,10 @@ int main( int argc, char** argv )
     //Front/Image651.png
     cout<<"Time at starting is 0 sec"<<endl;
     
-    string filename = "/Users/Somi/Desktop/_Recordings_/Front/Image651.png";
+    string filename = "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
     string filename2 = "/Users/Somi/Desktop/_Recordings_/pathmarker480p.mp4";
     
-//    VideoCapture capture(filename);
+    VideoCapture capture(filename);
 //    VideoCapture pathcap(filename2);
     src = imread(filename);
     
@@ -66,11 +66,11 @@ int main( int argc, char** argv )
     
     int framecounter = 0;
     
-//    for( ; ; )
-//    {
-//        capture >> src;
-//        pathcap.read (pathmark);
-//        
+    for( ; ; )
+    {
+        capture >> src;
+        //pathcap.read (pathmark);
+        
     
         
         cout<<"Framecounter "<<framecounter<<endl;
@@ -137,69 +137,29 @@ int main( int argc, char** argv )
             
                         filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-                        imshow("After Hue red", detect_r);
+                        //imshow("After Hue red", detect_r);
                         vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
 
                         
                         filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_g , detect_g , 100, 3, 31);
-                        imshow("After Hue Green", detect_g);
+                        //imshow("After Hue Green", detect_g);
                         vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
 
                         
                         filterImageHSVYellow(detect_y ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_y , detect_y , 100, 3, 31);
-                        imshow("After Hue Yellow", detect_y);
+                      //  imshow("After Hue Yellow", detect_y);
                         vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
 
                         
                         
+                        imshow( "Final Detection" , final_image);
                         
                         
                         
                         
-                        
-            
-//                        //   imshow("detect_r", detect_r);
-//                        /////////////////////////////////////////////////////////////////////////////////////////////
-//                         filter_image(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
-//            
-//                        fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-//                        imshow( "Display red", detect_r );
-//            
-//            
-//                        vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
-//                        if( red_vec.size() > 0 ){
-//                                    // follow the red bouy
-//            
-//                        }
-//                        //imshow( "after red completed" , final_image);
-//            
-//                        /////////////////////////////////////////////////////////////////////////////////////////////
-//                        //    imshow("detect_g", detect_g);
-//                        filter_image_green(detect_g ,src, s.height, s.width, cent_i , 50  , 150 , 100 );
-//            
-//                        fastNlMeansDenoising(detect_g,detect_g , 100, 3, 31);
-//                        imshow( "Display green", detect_g );
-//            
-//                        vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
-//                        //imshow( "after green completed" , final_image);
-//            
-//            
-//            
-//                        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-//                        //     imshow("detect_y", detect_y);
-//                         filter_image(detect_y ,src, s.height, s.width, cent_i , 150  , 180 , 150 );
-//            
-//            
-//            
-//                        fastNlMeansDenoising(detect_y,detect_y , 100, 3, 31);
-//                        imshow( "Display yellow", detect_y );
-//            
-//                        vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
-//                        imshow( "Final Detection" , final_image);
-//            
-                        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
                     }
             
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -240,4 +200,4 @@ int main( int argc, char** argv )
         }
         framecounter++;
     }
-//}
+}

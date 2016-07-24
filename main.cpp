@@ -135,9 +135,13 @@ int main( int argc, char** argv )
             
                         Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
             
-                        filterImageHSV(final_image ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+                        filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
                         
-                        imshow("Final Image", final_image);
+                        filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+                        
+                        imshow("After Hue red", detect_r);
+                        
+                        imshow("After Hue Green", detect_g);
             
 //                        //   imshow("detect_r", detect_r);
 //                        /////////////////////////////////////////////////////////////////////////////////////////////

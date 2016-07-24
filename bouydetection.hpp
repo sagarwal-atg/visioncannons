@@ -29,7 +29,9 @@ vector<Point> thresh_callback( Mat final_image , double yawO , vector<Point2i> c
 void setLabel(cv::Mat& im, const std::string label, std::vector<cv::Point>& contour );
 void filter_image (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
 void filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
-void filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
+void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
+void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
+
 
 void MyLine( Mat img, Point start, Point end );
 //void drawinglogistics();

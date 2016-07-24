@@ -10,7 +10,7 @@
 #include "movement.hpp"
 #define PI 3.14159265
 
-void direction(vector<Point>  target ,  double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1){
+void direction(vector<Point>  target ,  double yawO , vector<Point2i> cent_i  , int framecounter , vector<double> area1 , double curr_depth){
     
     double ang = 0;
     
@@ -51,6 +51,7 @@ void direction(vector<Point>  target ,  double yawO , vector<Point2i> cent_i  , 
      cout<< "The output pitch is "<<ang<<endl;
     
 
+
     
     int area = (int)largest_area;
     
@@ -66,6 +67,14 @@ void direction(vector<Point>  target ,  double yawO , vector<Point2i> cent_i  , 
     
     
     cout << "Distance to the bouy " << dist << endl;
+    
+    //////////////////////////////////////////////////////////////////////////////
+    
+    double depth , desired_depth;
+    
+    depth = dist * camera_calib * dist_y;
+    
+    desired_depth = curr_depth + depth;  /// the final desired depth 
     
     ///  vague description if we are going in correct direction
     /// comparing past 3 areas if the area has increased or not s

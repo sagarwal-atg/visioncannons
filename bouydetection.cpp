@@ -153,12 +153,12 @@ void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<
     Mat hsv;     // = src.clone();
     cvtColor(src, hsv, CV_BGR2HSV);
     
-//    vector<Mat> channels;
-//    split(hsv, channels);
-////    
-//    imshow("Hue", channels[0]);
-//    imshow("Saturation", channels[1]);
-//    imshow("Value", channels[2]);
+    vector<Mat> channels;
+    split(hsv, channels);
+    
+    imshow("Hue", channels[0]);
+    imshow("Saturation", channels[1]);
+    imshow("Value", channels[2]);
     
 //    for(int col = 0; col < width ; col++){
 //        for(int row = 0; row < height ; row++){
@@ -191,7 +191,7 @@ void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<
             
             Vec3b hsv_vec = hsv.at<Vec3b>(row ,col);
             
-            if( hsv_vec.val[0] < 15 || hsv_vec.val[0] > 172  )
+            if( (hsv_vec.val[0] < 15 || hsv_vec.val[0] > 172) && hsv_vec.val[1] > 0  )
             {
                 
                 detect.template at<Vec3b>(row, col)[0] = 0;
@@ -241,7 +241,7 @@ void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vecto
             
             Vec3b hsv_vec = hsv.at<Vec3b>(row ,col);
             
-            if( hsv_vec.val[0] < 75 && hsv_vec.val[0] > 50  )
+            if( hsv_vec.val[0] < 75 && hsv_vec.val[0] > 50   && hsv_vec.val[1] > 0 )
             {
                 
                 detect.template at<Vec3b>(row, col)[0] = 0;
@@ -291,7 +291,7 @@ void filterImageHSVYellow(  Mat detect, Mat src ,  int height , int width , vect
             
             Vec3b hsv_vec = hsv.at<Vec3b>(row ,col);
             
-            if( hsv_vec.val[0] <  38 && hsv_vec.val[0] > 27  )
+            if( hsv_vec.val[0] <  38 && hsv_vec.val[0] > 27  && hsv_vec.val[1] > 0 )
             {
                 
                 detect.template at<Vec3b>(row, col)[0] = 0;

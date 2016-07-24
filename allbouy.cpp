@@ -43,11 +43,13 @@ vector<Point>   all_bouy( Mat detect , Mat final_image , double yawI , vector<Po
 
 
         }
+        
+        
 
         for( int i = 0; i< contours.size(); i++ ) // iterate through each contour.
         {
             double a = contourArea( contours_poly[i],false);  //  Find the area of contour
-            if(a>l_area){
+            if( a > l_area){
                 l_area=a;
                 l_c_i = i;                //Store the index of largest contour
             }

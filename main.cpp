@@ -24,7 +24,7 @@ RNG rng(12345);
 
 
 /// Global variables
-Mat src, detect_r , detect_g , detect_y ,pathmark; //, final_image;
+Mat  detect_r , detect_g , detect_y ,pathmark; //, final_image;
 //vector<Point2i> cent_i(1);
 vector<double> area1;
 
@@ -56,7 +56,7 @@ int main( int argc, char** argv )
     
     VideoCapture capture(filename);
 //    VideoCapture pathcap(filename2);
-    src = imread(filename);
+    //ssrc = imread(filename);
     
 //    pathcap.set(CV_CAP_PROP_FRAME_WIDTH,640);
 //    pathcap.set(CV_CAP_PROP_FRAME_HEIGHT,480);
@@ -67,19 +67,20 @@ int main( int argc, char** argv )
     int framecounter = 0;
     
     for( ; ; )
-    {
-        capture >> src;
+    {   Mat hello;
+        capture >> hello;
         //pathcap.read (pathmark);
         
-    
+
         
         cout<<"Framecounter "<<framecounter<<endl;
         
         
-        
+        Rect myROI(20, 0, 440, 350);
+        Mat src( hello ,myROI);
         
         /// skipping 50 frames
-        if( framecounter% 5 == 0){
+        if( framecounter% 50 == 0){
             
 //            if(!pathmark.data)                              // Check for invalid input
 //            {
@@ -98,13 +99,16 @@ int main( int argc, char** argv )
              
              }*/
             /////////////////////////////////////////////////////////////////////////////////////////////
-            Size size = pathmark.size();
+            Size size = src.size();
             vector<Point2i> cent_i(1);
             
             
             cent_i[0].x=  (floor( size.width/2));
             cent_i[0].y = (floor( size.height/2));
+            
+            cout<< cent_i << endl; 
 
+            
             
             
             ///////////////////////////////////////////////////ALL BOUY DETECTION //////////////////////////////////////////////////////
@@ -116,7 +120,7 @@ int main( int argc, char** argv )
                         detect_g = src.clone();
                         detect_y = src.clone();
             
-                        imshow("Source Forward", src);
+                        imshow("Source Front", src);
             
                         Size s = src.size();
             
@@ -130,26 +134,26 @@ int main( int argc, char** argv )
             
                         // red 150 , 100 , 150
                         // green <  140 , 160 , 160
-                            // helllo i am here
+                        // helllo i am here
             
             
                         Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
             
                         filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-                        //imshow("After Hue red", detect_r);
+                        imshow("After Hue red", detect_r);
                         vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
 
                         
                         filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_g , detect_g , 100, 3, 31);
-                        //imshow("After Hue Green", detect_g);
+                        imshow("After Hue Green", detect_g);
                         vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
 
                         
                         filterImageHSVYellow(detect_y ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_y , detect_y , 100, 3, 31);
-                      //  imshow("After Hue Yellow", detect_y);
+                        imshow("After Hue Yellow", detect_y);
                         vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
 
                         
@@ -178,7 +182,8 @@ int main( int argc, char** argv )
 //            
 //            
 //            //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
-//            filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 150 );
+//           // filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 150 );
+//              filterImageHSVRed(detect_r ,pathmark, s.height, s.width, cent_i  );
 //            //filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
 //            
 //            fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
@@ -194,10 +199,13 @@ int main( int argc, char** argv )
             
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
-            waitKey();
+            waitKey(100);
             
             
         }
         framecounter++;
     }
 }
+
+
+

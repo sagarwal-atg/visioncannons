@@ -82,8 +82,71 @@ void filter_image (  Mat detect, Mat src ,  int height , int width , vector<Poin
 
 }
 
+void filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
+{
+    
+    int r[height][width], g[height ][width] ,b[height][width];
+    
+    //  cout<<s.width<<endl;
+    // cout<<s.height<<endl;
+    
+    for(int col = 0; col < width ; col++){
+        for(int row = 0; row < height ; row++){
+            
+            r[row][col] = 0;
+            g[col][row] = 0;
+            b[col][row] = 0;
+        }
+    }
+    
+    
+    for(int col = 0; col < width ; col++){
+        for(int row = 0; row < height ; row++){
+            
+            
+            b[row][col] = src.template at<Vec3b>(row,col)[0];
+            g[row][col] = src.template at<Vec3b>(row,col)[1];
+            r[row][col] = src.template at<Vec3b>(row,col)[2];
+            
+            // cout<<g[row][col]<<endl;
+        }
+    }
+    
+    // cout<<"copy done"<<endl;
+    
+    //  double alpha = 1.0;
+    //  int beta = 1;
+    
+    // Mat detect(s.height,s.width, CV_8UC3,Scalar(0,255,255));
+    
+    for(int col = 0; col < width ; col++){
+        for(int row = 0; row < height ; row++){
+            
+            
+            // WORKING PRETTY GOOD (120, 80, 140)
+            // 120 , 100 , 150
+            if( r[row][col] < red && g[row][col] > green && 250 > g[row][col] && b[row][col] < blue)
+            {
+                
+                detect.template at<Vec3b>(row, col)[0] = 255;
+                detect.template at<Vec3b>(row, col)[1] = 255;
+                detect.template at<Vec3b>(row, col)[2] = 255;
+            }
+            else
+            {
+                detect.template at<Vec3b>(row, col)[0] = 0;
+                detect.template at<Vec3b>(row, col)[1] = 0;
+                detect.template at<Vec3b>(row, col)[2] = 0;
+                
+                
+            }
+        }
+    }
+    
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
+void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i )
 {
     int r[height ][width], g[height ][width] ,b[height][width];
     
@@ -149,7 +212,7 @@ void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<
     
 }
 
-void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
+void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i )
 {
     int r[height ][width], g[height ][width] ,b[height][width];
     
@@ -199,7 +262,7 @@ void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vecto
     
 }
 
-void filterImageHSVYellow(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
+void filterImageHSVYellow(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i )
 {
     int r[height ][width], g[height ][width] ,b[height][width];
     
@@ -252,70 +315,8 @@ void filterImageHSVYellow(  Mat detect, Mat src ,  int height , int width , vect
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue)
-{
-    
-    int r[height][width], g[height ][width] ,b[height][width];
-    
-    //  cout<<s.width<<endl;
-    // cout<<s.height<<endl;
-    
-    for(int col = 0; col < width ; col++){
-        for(int row = 0; row < height ; row++){
-            
-            r[row][col] = 0;
-            g[col][row] = 0;
-            b[col][row] = 0;
-        }
-    }
-    
-    
-    for(int col = 0; col < width ; col++){
-        for(int row = 0; row < height ; row++){
-        
-            
-            b[row][col] = src.template at<Vec3b>(row,col)[0];
-            g[row][col] = src.template at<Vec3b>(row,col)[1];
-            r[row][col] = src.template at<Vec3b>(row,col)[2];
-            
-            // cout<<g[row][col]<<endl;
-        }
-    }
-    
-    // cout<<"copy done"<<endl;
-    
-    //  double alpha = 1.0;
-    //  int beta = 1;
-    
-    // Mat detect(s.height,s.width, CV_8UC3,Scalar(0,255,255));
-    
-    for(int col = 0; col < width ; col++){
-        for(int row = 0; row < height ; row++){
-            
-            
-            // WORKING PRETTY GOOD (120, 80, 140)
-            // 120 , 100 , 150
-            if( r[row][col] < red && g[row][col] > green && 250 > g[row][col] && b[row][col] < blue)
-            {
-                
-                detect.template at<Vec3b>(row, col)[0] = 255;
-                detect.template at<Vec3b>(row, col)[1] = 255;
-                detect.template at<Vec3b>(row, col)[2] = 255;
-            }
-            else
-            {
-                detect.template at<Vec3b>(row, col)[0] = 0;
-                detect.template at<Vec3b>(row, col)[1] = 0;
-                detect.template at<Vec3b>(row, col)[2] = 0;
-                
-                
-            }
-        }
-    }
-    
-}
-//
-//
+
+
 
 
 

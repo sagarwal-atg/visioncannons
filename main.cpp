@@ -135,17 +135,29 @@ int main( int argc, char** argv )
             
                         Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
             
-                        filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
-                        
-                        filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
-                        
-                        filterImageHSVYellow(detect_y ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
-                        
+                        filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i  );
+                        fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
                         imshow("After Hue red", detect_r);
+                        vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
+
                         
+                        filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i  );
+                        fastNlMeansDenoising(detect_g , detect_g , 100, 3, 31);
                         imshow("After Hue Green", detect_g);
+                        vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
+
                         
+                        filterImageHSVYellow(detect_y ,src, s.height, s.width, cent_i  );
+                        fastNlMeansDenoising(detect_y , detect_y , 100, 3, 31);
                         imshow("After Hue Yellow", detect_y);
+                        vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
+
+                        
+                        
+                        
+                        
+                        
+                        
                         
             
 //                        //   imshow("detect_r", detect_r);

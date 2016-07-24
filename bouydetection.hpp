@@ -26,12 +26,18 @@ using namespace cv;
 
 /// Function header
 vector<Point> thresh_callback( Mat final_image , double yawO , vector<Point2i> cent_i , vector<double> area1 ,  int thresh, int max_thresh , RNG rng , int g);
+
 void setLabel(cv::Mat& im, const std::string label, std::vector<cv::Point>& contour );
+
 void filter_image (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
-void filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
-void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
-void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
-void filterImageHSVYellow(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i , int red , int green , int blue);
+
+void filter_image_green (  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i );
+
+void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i    );
+
+void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i  );
+
+void filterImageHSVYellow(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i );
 
 
 void MyLine( Mat img, Point start, Point end );

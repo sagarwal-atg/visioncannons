@@ -88,24 +88,14 @@ void filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Po
     int r[height ][width], g[height ][width] ,b[height][width];
     
     Mat hsv;     // = src.clone();
-    cvtColor(src, hsv, CV_RGB2HSV_FULL);
+    cvtColor(src, hsv, CV_BGR2HSV);
     
     vector<Mat> channels;
     split(hsv, channels);
-    
+//    
     imshow("Hue", channels[0]);
     imshow("Saturation", channels[1]);
     imshow("Value", channels[2]);
-    
-    //imshow("hsv", hsv);
-    cent_i[0].x= ( floor( width/2));
-    cent_i[0].y = (floor( height/2));
-    
-    
-    cout<<"Center of the picture: "<<cent_i[0]<<endl;
-    
-    //  cout<<s.width<<endl;
-    // cout<<s.height<<endl;
     
 //    for(int col = 0; col < width ; col++){
 //        for(int row = 0; row < height ; row++){
@@ -120,6 +110,7 @@ void filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Po
     for(int col = 0; col < width ; col++){
         for(int row = 0; row < height ; row++){
             
+            
             b[row][col] = src.template at<Vec3b>(row,col)[0];
             g[row][col] = src.template at<Vec3b>(row,col)[1];
             r[row][col] = src.template at<Vec3b>(row,col)[2];
@@ -128,20 +119,16 @@ void filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Po
         }
     }
     
-    // cout<<"copy done"<<endl;
-    
-    //  double alpha = 1.0;
-    //  int beta = 1;
-    
-    // Mat detect(s.height,s.width, CV_8UC3,Scalar(0,255,255));
-    
     for(int col = 0; col < width ; col++){
         for(int row = 0; row < height ; row++){
             
             
             // WORKING PRETTY GOOD (120, 80, 140)
             // 120 , 100 , 150
-            if( r[row][col] > red && g[row][col] > green && b[row][col] < blue)
+            
+            Vec3b hsv_vec = hsv.at<Vec3b>(row ,col);
+            
+            if( hsv_vec.val[0] > 0.9 * 255 )
             {
                 
                 detect.template at<Vec3b>(row, col)[0] = 255;
@@ -154,10 +141,11 @@ void filterImageHSV (  Mat detect, Mat src ,  int height , int width , vector<Po
                 detect.template at<Vec3b>(row, col)[1] = 0;
                 detect.template at<Vec3b>(row, col)[2] = 0;
                 
+                
             }
         }
     }
-    
+//    imshow("after thresholding", detect);
     
 }
 
@@ -167,12 +155,6 @@ void filter_image_green (  Mat detect, Mat src ,  int height , int width , vecto
 {
     
     int r[height ][width], g[height ][width] ,b[height][width];
-    
-    cent_i[0].x= ( floor( width/2));
-    cent_i[0].y = (floor( height/2));
-    
-    
-    cout<<"Center of the picture: "<<cent_i[0]<<endl;
     
     //  cout<<s.width<<endl;
     // cout<<s.height<<endl;

@@ -51,27 +51,27 @@ int main( int argc, char** argv )
     //Front/Image651.png
     cout<<"Time at starting is 0 sec"<<endl;
     
-    string filename = "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
+    string filename = "/Users/Somi/Desktop/_Recordings_/Front/Image651.png";
     string filename2 = "/Users/Somi/Desktop/_Recordings_/pathmarker480p.mp4";
     
-    VideoCapture capture(filename);
-    VideoCapture pathcap(filename2);
-    //src = imread(filename);
+//    VideoCapture capture(filename);
+//    VideoCapture pathcap(filename2);
+    src = imread(filename);
     
-    pathcap.set(CV_CAP_PROP_FRAME_WIDTH,640);
-    pathcap.set(CV_CAP_PROP_FRAME_HEIGHT,480);
+//    pathcap.set(CV_CAP_PROP_FRAME_WIDTH,640);
+//    pathcap.set(CV_CAP_PROP_FRAME_HEIGHT,480);
     
-    if( !capture.isOpened() )
-        cout<< "Error when reading steam_avi"<<endl;
+//    if( !capture.isOpened() )
+//        cout<< "Error when reading steam_avi"<<endl;
     
     int framecounter = 0;
     
-    for( ; ; )
-    {
-        capture >> src;
-        pathcap.read (pathmark);
-        
-        
+//    for( ; ; )
+//    {
+//        capture >> src;
+//        pathcap.read (pathmark);
+//        
+    
         
         cout<<"Framecounter "<<framecounter<<endl;
         
@@ -81,11 +81,11 @@ int main( int argc, char** argv )
         /// skipping 50 frames
         if( framecounter% 5 == 0){
             
-            if(!pathmark.data)                              // Check for invalid input
-            {
-                cout <<  "Could not open or find the image" << std::endl ;
-                return -1;
-            }
+//            if(!pathmark.data)                              // Check for invalid input
+//            {
+//                cout <<  "Could not open or find the image" << std::endl ;
+//                return -1;
+//            }
             struct timeval tv0,tv1;
             gettimeofday(&tv0 , 0);
             
@@ -135,7 +135,9 @@ int main( int argc, char** argv )
             
                         Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
             
-                        filterImageHSV(detect_r ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+                        filterImageHSV(final_image ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+                        
+                        imshow("Final Image", final_image);
             
 //                        //   imshow("detect_r", detect_r);
 //                        /////////////////////////////////////////////////////////////////////////////////////////////
@@ -186,24 +188,24 @@ int main( int argc, char** argv )
             //////////////////////////////////////////////////// PATH MARKER ///////////////////////////////////////////////////////////
             
             
-            imshow("Source Forward", pathmark);
-            Size s = pathmark.size();
-            detect_r = pathmark.clone();
-            cout << "width "  << s.width  << "height " << s.height << endl;
-            
-           // flip(pathmark, pathmark, 0);
-            
-            
-            //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
-            filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 150 );
-            //filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
-            
-            fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-            imshow( "Display red", detect_r );
-            
-            
-            
-            Rect pathrect = path_marker(  detect_r ,  yawI , cent_i ,  area1 ,  thresh,  max_thresh ,  rng ,  framecounter);
+//            imshow("Source Forward", pathmark);
+//            Size s = pathmark.size();
+//            detect_r = pathmark.clone();
+//            cout << "width "  << s.width  << "height " << s.height << endl;
+//            
+//           // flip(pathmark, pathmark, 0);
+//            
+//            
+//            //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
+//            filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 150 );
+//            //filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
+//            
+//            fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
+//            imshow( "Display red", detect_r );
+//            
+//            
+//            
+//            Rect pathrect = path_marker(  detect_r ,  yawI , cent_i ,  area1 ,  thresh,  max_thresh ,  rng ,  framecounter);
             
             //        imshow("pathmarker", path_image);
             
@@ -211,10 +213,10 @@ int main( int argc, char** argv )
             
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
-            waitKey(100);
+            waitKey();
             
             
         }
         framecounter++;
     }
-}
+//}

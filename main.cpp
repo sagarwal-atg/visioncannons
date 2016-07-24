@@ -187,11 +187,13 @@ int main( int argc, char** argv )
             imshow("Source Forward", pathmark);
             Size s = pathmark.size();
             detect_r = pathmark.clone();
-            cout << "width"  << s.width  << endl;
-            cout << "height" << s.height << endl;
+            cout << "width "  << s.width  << "height " << s.height << endl;
+            
+           // flip(pathmark, pathmark, 0);
+            
             
             //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
-            filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 170 , 150 );
+            filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 150 );
             //filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
             
             fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);

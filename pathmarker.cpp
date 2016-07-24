@@ -109,11 +109,14 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         
         line(final_image, fitline_start, fitline_end, color , 5 , 8 , 0  );
         
-        if( ang > 0 &&  ang ) {
+       // if( ang > 0 &&  ang ) {
         
-        ang = atan2(fit_line[0], fit_line[1]) * 180 / PI;
+        
+        
+        ///  
+        ang = atan(-(fit_line[0]) /fit_line[1]) * 180 / PI;
             cout<<"The angle of the pathmarker is " << ang <<endl;
-        }
+       // }
 
 ///////////////////////////drawing line at the center of the image //////////////////////////////////////////////////////////////
         
@@ -121,10 +124,10 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         vector<Point2i> cent_j(1);
         
         cent_k[0] = cent_i[0];
-        cent_k[0].x = cent_i[0].x - 20;
+        cent_k[0].x = cent_i[0].x - 200;
         
         cent_j[0] = cent_i[0];
-        cent_j[0].x = cent_i[0].x + 20;
+        cent_j[0].x = cent_i[0].x + 200;
         
         
         // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
@@ -134,10 +137,10 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         MyLine(final_image , (cent_k[0] ), (cent_j[0]));
         
         cent_k[0] = cent_i[0];
-        cent_k[0].y = cent_i[0].y - 20;
+        cent_k[0].y = cent_i[0].y - 200;
         
         cent_j[0] = cent_i[0];
-        cent_j[0].y = cent_i[0].y + 20;
+        cent_j[0].y = cent_i[0].y + 200;
         
         MyLine(final_image , (cent_k[0] ), (cent_j[0]));
         

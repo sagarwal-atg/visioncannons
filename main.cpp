@@ -139,9 +139,14 @@ int main( int argc, char** argv )
                         
                         filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
                         
+                        filterImageHSVYellow(detect_y ,src, s.height, s.width, cent_i , 150  , 100 , 150 );
+                        
                         imshow("After Hue red", detect_r);
                         
                         imshow("After Hue Green", detect_g);
+                        
+                        imshow("After Hue Yellow", detect_y);
+                        
             
 //                        //   imshow("detect_r", detect_r);
 //                        /////////////////////////////////////////////////////////////////////////////////////////////

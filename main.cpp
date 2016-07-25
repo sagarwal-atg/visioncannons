@@ -24,7 +24,7 @@ RNG rng(12345);
 
 
 /// Global variables
-Mat  detect_r , detect_g , detect_y ,pathmark; //, final_image;
+Mat  src, detect_r , detect_g , detect_y ,pathmark; //, final_image;
 //vector<Point2i> cent_i(1);
 vector<double> area1;
 
@@ -51,12 +51,14 @@ int main( int argc, char** argv )
     //Front/Image651.png
     cout<<"Time at starting is 0 sec"<<endl;
     
-    string filename = "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
+    string filename =  "/Users/Somi/Desktop/_Recordings_/underwatertest.mp4";
     string filename2 = "/Users/Somi/Desktop/_Recordings_/pathmarker480p.mp4";
     
-    VideoCapture capture(filename);
+    char imageName[48];
+    
+//    VideoCapture capture(filename);
 //    VideoCapture pathcap(filename2);
-    //ssrc = imread(filename);
+    //src = imread(filename);
     
 //    pathcap.set(CV_CAP_PROP_FRAME_WIDTH,640);
 //    pathcap.set(CV_CAP_PROP_FRAME_HEIGHT,480);
@@ -66,21 +68,28 @@ int main( int argc, char** argv )
     
     int framecounter = 0;
     
+    
+    
     for( ; ; )
-    {   Mat hello;
-        capture >> hello;
+    { //  Mat hello;
+     //   capture >> hello;
         //pathcap.read (pathmark);
         
 
+        sprintf(imageName,"/Users/Somi/Desktop/_Recordings_/Front/Image%d.png",framecounter);
         
         cout<<"Framecounter "<<framecounter<<endl;
+//        
+//        
+//        Rect myROI(20, 0, 440, 350);
+//        Mat src( hello ,myROI);
         
+        src = imread(imageName);
         
-        Rect myROI(20, 0, 440, 350);
-        Mat src( hello ,myROI);
+        ////// ASK FOR CURRENT DEPTH /////////
         
         /// skipping 50 frames
-        if( framecounter% 50 == 0){
+        if( framecounter% 10 == 0){
             
 //            if(!pathmark.data)                              // Check for invalid input
 //            {
@@ -89,6 +98,28 @@ int main( int argc, char** argv )
 //            }
             struct timeval tv0,tv1;
             gettimeofday(&tv0 , 0);
+            
+            
+//            Mat canny;
+//            
+//            canny = imread("/Users/Somi/Desktop/_Recordings_/circles.jpg");
+//            cvtColor( canny, canny, CV_BGR2GRAY );
+//            
+//            //Canny(canny, canny, 1, 100);
+//            
+//            
+//            vector<Vec3f> circles;
+//            HoughCircles(canny, circles, CV_HOUGH_GRADIENT, 1, 1);
+//            
+//            Mat circle_img;
+//            circle_img = canny.clone();
+//            for( int i = 0 ; i < circles.size() ; i++){
+//                circle(circle_img, Point(circles[i][0] , circles[i][1]), circles[i][2],  Scalar( 0 , 0, 255 ) );
+//            }
+//            cout<<"The size of the circle vector " <<circles.size() <<endl;
+//            imshow("Canny " , canny);
+//            imshow("Circles", circle_img);
+            
             
             ////////////////////////////////////////// NOT SURE IF WE WILL BE DOING THIS ///////////
             /*
@@ -141,19 +172,19 @@ int main( int argc, char** argv )
             
                         filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-                        imshow("After Hue red", detect_r);
+                       imshow("After Hue red", detect_r);
                         vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
 
                         
                         filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_g , detect_g , 100, 3, 31);
-                        imshow("After Hue Green", detect_g);
+                     //   imshow("After Hue Green", detect_g);
                         vector<Point> green_vec = all_bouy(detect_g ,final_image,  yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 1);
 
                         
                         filterImageHSVYellow(detect_y ,src, s.height, s.width, cent_i  );
                         fastNlMeansDenoising(detect_y , detect_y , 100, 3, 31);
-                        imshow("After Hue Yellow", detect_y);
+                       // imshow("After Hue Yellow", detect_y);
                         vector<Point> yellow_vec = all_bouy(detect_y , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng ,framecounter, contours , 2);
 
                         

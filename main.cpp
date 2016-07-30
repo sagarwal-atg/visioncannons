@@ -147,35 +147,35 @@ int main( int argc, char** argv )
 //            
 //                    if( validation_gate_done && !bouy_done)
 //                    {
-//                        detect_r = src.clone();
-//                        detect_g = src.clone();
-//                        detect_y = src.clone();
-//            
-//                        imshow("Source Front", src);
-//            
-//                        Size s = src.size();
-//            
-//                        vector<vector<Point> > contours;
-//            
-//            
-//                        gettimeofday(&tv1,0);
-//                        long elap = (tv1.tv_sec - tv0.tv_sec ) * 100000  + tv1.tv_usec - tv0.tv_usec;
-//            
-//                        cout<<"Time after initial thresholding : " << elap/1000.0f <<"millisec"<<endl;
-//            
-//                        // red 150 , 100 , 150
-//                        // green <  140 , 160 , 160
-//                        // helllo i am here
-//            
-//            
-//                        Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
-//            
-//                        filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i  );
-//                        fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
-//                       imshow("After Hue red", detect_r);
-//                        vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
-//
-//                        
+                        detect_r = src.clone();
+                        detect_g = src.clone();
+                        detect_y = src.clone();
+            
+                        imshow("Source Front", src);
+            
+                        Size s = src.size();
+            
+                        vector<vector<Point> > contours;
+            
+            
+                        gettimeofday(&tv1,0);
+                        long elap = (tv1.tv_sec - tv0.tv_sec ) * 100000  + tv1.tv_usec - tv0.tv_usec;
+            
+                        cout<<"Time after initial thresholding : " << elap/1000.0f <<"millisec"<<endl;
+            
+                        // red 150 , 100 , 150
+                        // green <  140 , 160 , 160
+                        // helllo i am here
+            
+            
+                        Mat final_image = Mat::zeros( src.size(), CV_8UC3 );
+            
+                        filterImageHSVRed(detect_r ,src, s.height, s.width, cent_i  );
+                        fastNlMeansDenoising(detect_r , detect_r , 100, 3, 31);
+                       imshow("After Hue red", detect_r);
+                        vector<Point> red_vec = all_bouy(detect_r , final_image,   yawI ,  cent_i , area1 ,  thresh , max_thresh , rng , framecounter   , contours , 0);
+
+                        
 //                        filterImageHSVGreen(detect_g ,src, s.height, s.width, cent_i  );
 //                        fastNlMeansDenoising(detect_g , detect_g , 100, 3, 31);
 //                     //   imshow("After Hue Green", detect_g);
@@ -205,9 +205,9 @@ int main( int argc, char** argv )
             
             
             imshow("Source Forward", pathmark);
-            Size s = pathmark.size();
+            Size p = pathmark.size();
             detect_r = pathmark.clone();
-            cout << "width "  << s.width  << "height " << s.height << endl;
+            cout << "width "  << p.width  << "height " << p.height << endl;
             
             Mat hsv;     // = src.clone();
             cvtColor(pathmark, hsv, CV_BGR2HSV);
@@ -224,9 +224,9 @@ int main( int argc, char** argv )
             threshold(channels[1], channels[1], 80 , 255, THRESH_BINARY);
             imshow("saturation" , channels[1]);
             //Mat path_image = Mat::zeros( pathmark.size(), CV_8UC3 );
-            //filter_image(detect_r ,pathmark, s.height, s.width, cent_i , 160  , 150 , 150 );
-       //    filterImageHSVOrange(detect_r ,pathmark, s.height, s.width, cent_i  );
-            //filterImageHSV(detect_r ,pathmark, s.height, s.width, cent_i , 170  , 150 , 100 );
+            
+            
+       //    filterImageHSVOrange(detect_r ,pathmark, p.height, p.width, cent_i  );
             
             //fastNlMeansDenoising(detect_r , detect_r , 50, 3, 31);
             fastNlMeansDenoising(channels[1] , channels[1] , 50, 3, 31);

@@ -64,10 +64,14 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         
         cout<<"The area of the rectangle"<< rect_area<<endl;
         
-        /// Draw  bonding rects
-        Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
+        double camera_calib = 0.0005375 * min(2560/(cent_i[0].x * 2), 1440/(cent_i[0].y * 2));
         
-        if( rect_area > 40000 && rect_area < 60000 )
+        /// Draw  bonding rects
+      //  Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
+        
+        double min_length = 0.1/camera_calib;
+        
+        if( rect_area > 60000 && rect_area < 80000 )
         {
         
     
@@ -206,7 +210,7 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         temp.y = 40;
         c_print.push_back(temp);
         
-        setLabel(drawing, s , c_print);
+        setLabel(final_image, s , c_print);
         /// Show in a window
        // namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
       //  imshow( "Contours", final_image );

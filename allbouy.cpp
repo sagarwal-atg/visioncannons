@@ -140,9 +140,6 @@ void drawcontours(Mat final_image  , vector<vector<Point> > contours , int color
 //            cout<<"yellow"<<boundRect_y[i] << endl;
 //        }
 //
-////        for (int j = 0 ; j < bo; <#increment#>) {
-////            <#statements#>
-////        }
 //
 //     //   Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
 //

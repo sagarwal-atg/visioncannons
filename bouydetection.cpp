@@ -212,6 +212,74 @@ void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<
     
 }
 
+
+void filterImageHSVOrange(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i )
+{
+    int r[height ][width], g[height ][width] ,b[height][width];
+    
+    Mat hsv;     // = src.clone();
+    cvtColor(src, hsv, CV_BGR2HSV);
+    
+    vector<Mat> channels;
+    split(hsv, channels);
+    
+    imshow("Hue", channels[0]);
+    imshow("Saturation", channels[1]);
+    imshow("Value", channels[2]);
+    
+    //    for(int col = 0; col < width ; col++){
+    //        for(int row = 0; row < height ; row++){
+    //
+    //            r[row][col] = 0;
+    //            g[col][row] = 0;
+    //            b[col][row] = 0;
+    //        }
+    //    }
+    
+    
+    for(int col = 0; col < width ; col++){
+        for(int row = 0; row < height ; row++){
+            
+            
+            b[row][col] = src.template at<Vec3b>(row,col)[0];
+            g[row][col] = src.template at<Vec3b>(row,col)[1];
+            r[row][col] = src.template at<Vec3b>(row,col)[2];
+            
+            // cout<<g[row][col]<<endl;
+        }
+    }
+    
+    for(int col = 0; col < width ; col++){
+        for(int row = 0; row < height ; row++){
+            
+            
+            // WORKING PRETTY GOOD (120, 80, 140)
+            // 120 , 100 , 150
+            
+            Vec3b hsv_vec = hsv.at<Vec3b>(row ,col);
+            
+            if( (hsv_vec.val[0] < 45 && hsv_vec.val[0] > 10) && hsv_vec.val[1] > 80  )
+            {
+                
+                detect.template at<Vec3b>(row, col)[0] = 0;
+                detect.template at<Vec3b>(row, col)[1] = 0;
+                detect.template at<Vec3b>(row, col)[2] = 255;
+            }
+            else
+            {
+                detect.template at<Vec3b>(row, col)[0] = 0;
+                detect.template at<Vec3b>(row, col)[1] = 0;
+                detect.template at<Vec3b>(row, col)[2] = 0;
+                
+                
+            }
+        }
+    }
+    //    imshow("after thresholding", detect);
+    
+}
+
+
 void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i )
 {
     int r[height ][width], g[height ][width] ,b[height][width];

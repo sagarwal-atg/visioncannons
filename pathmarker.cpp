@@ -24,7 +24,7 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
     
     /// Detect edges using Threshold
     threshold( final_image, threshold_output, thresh, 255, THRESH_BINARY );
-    cvtColor(threshold_output, threshold_output, CV_BGR2GRAY);
+   // cvtColor(threshold_output, threshold_output, CV_BGR2GRAY);
     /// Find contours
     findContours( threshold_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
     
@@ -56,23 +56,34 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         }
         
         
+        int rec_width =  boundRect[l_c_i].br().x - boundRect[l_c_i].tl().x ;
+        int rec_len =  boundRect[l_c_i].br().y - boundRect[l_c_i].tl().y;
+        
+        
+        int rect_area = rec_width * rec_len ;
+        
+        cout<<"The area of the rectangle"<< rect_area<<endl;
+        
         /// Draw  bonding rects
         Mat drawing = Mat::zeros( threshold_output.size(), CV_8UC3 );
         
+        if( rect_area > 40000 && rect_area < 60000 )
+        {
         
     
         Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         
-         //   rectangle( drawing, boundRect[l_c_i].tl(), boundRect[l_c_i].br(), color, 2, 8, 0 );
+        rectangle( final_image, boundRect[l_c_i].tl(), boundRect[l_c_i].br(), color, 2, 8, 0 );
            
         
         //    setLabel(drawing, "Target", contours[0]);
             
        // Mat fit_line_image = drawing.clone();
 
-        
-////////////////////////// Making the line at the center of the rectangle ////////////////////////////
         int rec_top_w =  boundRect[l_c_i].tl().x + ( boundRect[l_c_i].br().x - boundRect[l_c_i].tl().x ) /2 ;
+
+////////////////////////// Making the line at the center of the rectangle ////////////////////////////
+        
      //   int rec_bot_w = rec_top_w + (boundRect[l_c_i].br().y - boundRect[l_c_i].tl().y);
         
         {   std::vector<cv::Point> rect_center;
@@ -92,9 +103,13 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
 
             
         }
+        
+        
         vector<float> fit_line(4);
         
         fitLine(contours_poly[l_c_i], fit_line, CV_DIST_L2, 0, 0.01, 0.01);
+        
+       // cout<<"The size "
         
         Point fitline_start ;
         fitline_start.x = fit_line[2] - fit_line[0] * 200;
@@ -116,33 +131,35 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         ///  fit_line[1] the y -axis angle and fit_line[0] x-axis. We make fit_line[0] -ve because in image processing the z values decrease as we go down
         ang = atan(-(fit_line[0]) /fit_line[1]) * 180 / PI;
             cout<<"The angle of the pathmarker is " << ang <<endl;
-       // }
+        
+    }
+    
 
 ///////////////////////////drawing line at the center of the image //////////////////////////////////////////////////////////////
-        
-        vector<Point2i> cent_k(1);
-        vector<Point2i> cent_j(1);
-        
-        cent_k[0] = cent_i[0];
-        cent_k[0].x = cent_i[0].x - 200;
-        
-        cent_j[0] = cent_i[0];
-        cent_j[0].x = cent_i[0].x + 200;
-        
-        
-        // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        circle( final_image , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-        //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-        //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
-        MyLine(final_image , (cent_k[0] ), (cent_j[0]));
-        
-        cent_k[0] = cent_i[0];
-        cent_k[0].y = cent_i[0].y - 200;
-        
-        cent_j[0] = cent_i[0];
-        cent_j[0].y = cent_i[0].y + 200;
-        
-        MyLine(final_image , (cent_k[0] ), (cent_j[0]));
+//        
+//        vector<Point2i> cent_k(1);
+//        vector<Point2i> cent_j(1);
+//        
+//        cent_k[0] = cent_i[0];
+//        cent_k[0].x = cent_i[0].x - 200;
+//        
+//        cent_j[0] = cent_i[0];
+//        cent_j[0].x = cent_i[0].x + 200;
+//        
+//        
+//        // Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+//        circle( final_image , cent_i[0] ,  5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+//        //circle( drawing , cent_i[0] ,  2*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+//        //circle( drawing , cent_i[0] ,  4*5 , Scalar( 72, 209, 51 ) , 2, 8 , 0);
+//        MyLine(final_image , (cent_k[0] ), (cent_j[0]));
+//        
+//        cent_k[0] = cent_i[0];
+//        cent_k[0].y = cent_i[0].y - 200;
+//        
+//        cent_j[0] = cent_i[0];
+//        cent_j[0].y = cent_i[0].y + 200;
+//        
+//        MyLine(final_image , (cent_k[0] ), (cent_j[0]));
         
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
@@ -191,8 +208,8 @@ Rect path_marker( Mat final_image , double yawI , vector<Point2i> cent_i , vecto
         
         setLabel(drawing, s , c_print);
         /// Show in a window
-        namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
-        imshow( "Contours", final_image );
+       // namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
+      //  imshow( "Contours", final_image );
         
         return boundRect[l_c_i];
     }

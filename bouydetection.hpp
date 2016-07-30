@@ -35,6 +35,8 @@ void filter_image_green (  Mat detect, Mat src ,  int height , int width , vecto
 
 void filterImageHSVRed(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i    );
 
+void filterImageHSVOrange(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i    );
+
 void filterImageHSVGreen(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i  );
 
 void filterImageHSVYellow(  Mat detect, Mat src ,  int height , int width , vector<Point2i> cent_i );
